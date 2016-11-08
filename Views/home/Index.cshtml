@@ -1,0 +1,215 @@
+﻿@model hypster_tv.ViewModels.HomePageViewModel
+
+@{
+    ViewBag.Title = "Hypster.TV, Music, Radio, TV and the Net";
+}
+
+
+
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        RenderSong();
+    });
+    $(window).resize(function () {
+        RenderSong();
+    });
+
+
+
+    function RenderSong() {
+        var margin_left = 0;
+        var cont_width = 1024;
+
+        if ($(window).width() > 1024) {
+            margin_left = $(window).width() - 1024 - 44;
+            cont_width = 1024 + 30 + (margin_left / 2) - 15;
+        } else {
+            margin_left = 0;
+            cont_width = 1024;
+        }
+
+
+        //===================================================================
+        $("#listenSlide1").css("float", "right");
+        $("#listenSlide1").css("width", cont_width + "px");
+        //===================================================================
+
+
+        //===================================================================
+        $("#listenSlide2").css("float", "left");
+        $("#listenSlide2").css("width", cont_width + "px");
+        //===================================================================
+
+
+        //===================================================================
+        $("#listenSlide3").css("float", "right");
+        $("#listenSlide3").css("width", cont_width + "px");
+        //===================================================================
+
+
+    }
+
+</script>
+
+
+
+
+
+
+<div class="boxContRight boxContRightTop">
+    <div id="listenSlide1" class="slideRight" style=" min-height:380px;">
+
+
+            <!-- LEFT CONT -->
+            <div class="commonRootLeftCont" style=" float:left; width:1024px;" >
+                
+
+                <div style=" float:left; width:60px; height:380px; background-color:#232323; ">
+                    
+                    <div id="sosialHolder1" onmouseover="this.style.display = 'none'; $('#SNR_BtnHolder_').css('display','block');">
+                        <div class="SI_Cont_google"></div>
+                        <div class="SI_Cont_twitter"></div>
+                        <div class="SI_Cont_facebook"></div>
+                    </div>
+
+                    <div id="SNR_BtnHolder_" style=" float:right; width:60px; display:none; overflow:hidden;">
+                        <div class="SI_Cont_facebook1">
+                            <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2F@(System.Configuration.ConfigurationManager.AppSettings["videoHostName"])&amp;send=false&amp;layout=button_count&amp;width=90&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
+                        </div>
+
+                        <div class="SI_Cont_twitter1">
+                            <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://@System.Configuration.ConfigurationManager.AppSettings["videoHostName"]" data-text="Hypster TV: ">Tweet</a>
+                            <script>                                            !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } } (document, "script", "twitter-wjs");</script>
+                        </div>
+
+                        <div class="SI_Cont_google1">
+                            <div class="g-plusone" data-size="medium" data-href="http://@System.Configuration.ConfigurationManager.AppSettings["videoHostName"]"></div>
+                            <script type="text/javascript">                                            (function () { var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; po.src = 'https://apis.google.com/js/plusone.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); })();</script>
+                        </div>
+                    </div>
+
+                </div>
+
+                
+                <div style=" float:left;  width:640px; margin:0 0 0 15px; ">
+                @Html.Action("_slideshow", "slideshow")
+                </div>
+
+
+
+                
+                <div id="SideAd1_8237ey" class="AdCont300x250"></div>
+                <!-- 06_10 -->
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        document.getElementById("SideAd1_8237ey").innerHTML = "<iframe src=\"http://feed-rt.baronsoffers.com/offer/feed/q/aT0zNTQ4LHM9MzAweDI1MCxuPWlmcmFtZQ==?subid=default\" width=\"300\" height=\"250\" scrolling=\"no\" marginwidth=\"0\" style=\"border:none;\" frameborder=\"0\"></iframe>";
+                    });
+                </script>
+
+
+
+                <div style=" float:left; width:304px; height:110px; line-height:100px; text-align:center; background-color:#232323; margin:15px 0 0 0px; font-size:27px; cursor:pointer;" onclick="window.location='/page/1';">
+                    All Videos
+                </div>
+
+
+            </div>
+            <!-- LEFT CONT -->
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="boxContLeft">
+    <div id="listenSlide2" class="slideLeft" style=" min-height:250px;">
+
+
+            <div style=" float:right; width:1024px;">
+                
+
+                <div class="FeaturedVideoInner">
+                    @foreach (var clip in Model.TopVideos)
+                    {   
+                        <a class="VideoThumbBox" href="http://@System.Configuration.ConfigurationManager.AppSettings["videoHostName"]/video/@(clip.Guid)">
+                            <img alt="@clip.Name" src="http://@System.Configuration.ConfigurationManager.AppSettings["videoHostName"]/uploads/covers/@(clip.Guid).jpg" />
+                            <div class="videoBoxHeader">&nbsp;&nbsp;@clip.Name</div>
+                        </a>
+                    }
+                </div>
+
+
+                <div id="Tab_Paging">
+                    <a class="videoMoreVideosBtn" href="/page/1" style=" float:right; color:#353535; font-size:16px;">More Videos </a>
+                </div>
+
+            </div>
+
+</div>
+</div>
+
+
+
+
+
+
+<div class="boxContRight">
+    <div id="listenSlide3" class="slideRight" style=" min-height:350px;">
+    
+
+            <div style=" float:left; width:1024px;">
+
+
+                    <!-- RIGHT CONT -->
+                    <div class="commonRootRightCont">
+
+    
+                        
+                        <div style=" float:left; width:304px; ">                
+                            <div id="SideAd2_js9d832" class="AdCont300x250_lte" style=" float:left; margin-top:0px; "></div>
+                            <!-- 06_10 -->
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    document.getElementById("SideAd2_js9d832").innerHTML = "<iframe src=\"http://feed-rt.baronsoffers.com/offer/feed/q/aT0zNTQ4LHM9MzAweDI1MCxuPWlmcmFtZQ==?subid=default\" width=\"300\" height=\"250\" scrolling=\"no\" marginwidth=\"0\" style=\"border:none;\" frameborder=\"0\"></iframe>";
+                                });
+                            </script>
+
+                            <div id="SideAd3_s9283eu" class="AdCont300x250_lte" style=" float:left; margin-top:15px; "></div>
+                            <!-- 06_10 -->
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    document.getElementById("SideAd3_s9283eu").innerHTML = "<iframe src=\"http://feed-rt.baronsoffers.com/offer/feed/q/aT0zNTQ4LHM9MzAweDI1MCxuPWlmcmFtZQ==?subid=default\" width=\"300\" height=\"250\" scrolling=\"no\" marginwidth=\"0\" style=\"border:none;\" frameborder=\"0\"></iframe>";
+                                });
+                            </script>
+                        </div>
+
+
+
+
+                        <div id="listenSlide3_cont" style=" float:left; width:700px; height:523px; margin:0 0 0 20px; background-color:#5a5d5f; border-radius:2px;">
+                            @Html.Action("GetLatestNews", "news")
+                        </div>
+                
+
+
+                    </div>
+                    <!-- RIGHT CONT -->
+
+
+
+            </div>
+
+    
+    </div>
+</div>

@@ -1,0 +1,29 @@
+﻿@model hypster_tv.ViewModels.getVideoBottomLinksViewModel
+
+@{
+    ViewBag.Title = "getVideoBottomLinks";
+    Layout = null;
+}
+
+
+
+<div style=" float:left; width:100%;">
+
+
+    <div class="FeaturedVideoInner" style="margin-left:-25px;">
+        @foreach (var clip in Model.TopVideos)
+        {   
+            <a class="VideoThumbBox" href="http://@System.Configuration.ConfigurationManager.AppSettings["videoHostName"]/video/@(clip.Guid)">
+                <img alt="@clip.Name" src="http://@System.Configuration.ConfigurationManager.AppSettings["videoHostName"]/uploads/covers/@(clip.Guid).jpg" />
+                <div class="videoBoxHeader">&nbsp;&nbsp;@clip.Name</div>
+            </a>
+        }
+    </div>
+
+
+    <div id="Tab_Paging">
+        <a class="videoMoreVideosBtn" href="/page/1">More Videos</a>
+    </div>
+    
+              
+</div>

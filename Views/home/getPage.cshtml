@@ -1,0 +1,147 @@
+﻿@model hypster_tv.ViewModels.HomePageViewModel
+
+@{
+    ViewBag.Title = "Hypster.TV, Music, Radio, TV and the Net";
+}
+
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        RenderSong();
+    });
+    $(window).resize(function () {
+        RenderSong();
+    });
+
+
+
+    function RenderSong() {
+        var margin_left = 0;
+        var cont_width = 1024;
+
+        if ($(window).width() > 1024) {
+            margin_left = $(window).width() - 1024 - 44;
+            cont_width = 1024 + 30 + (margin_left / 2) - 15;
+        } else {
+            margin_left = 0;
+            cont_width = 1024;
+        }
+
+
+        //===================================================================
+        $("#listenSlide1").css("float", "right");
+        $("#listenSlide1").css("width", cont_width + "px");
+        //===================================================================
+
+
+        //===================================================================
+        $("#listenSlide2").css("float", "left");
+        $("#listenSlide2").css("width", cont_width + "px");
+        //===================================================================
+
+    }
+
+</script>
+
+
+
+
+
+
+<div class="boxContRight boxContRightTop">
+    <div id="listenSlide1" class="slideRight" style=" min-height:700px;">
+
+
+            <!-- LEFT CONT -->
+            <div class="commonRootLeftCont" style=" float:left; width:1024px;" >
+                
+
+                <div class="FeaturedVideoInner">
+                    @for (int i = ViewBag.CurrPage_Start; i < ViewBag.CurrPage_End; i++)
+                    {
+                        if (i < Model.TopVideos.Count)
+                        {
+                            <a class="VideoThumbBox" href="http://@System.Configuration.ConfigurationManager.AppSettings["videoHostName"]/video/@(Model.TopVideos[i].Guid)">
+                                <img alt="@Model.TopVideos[i].Name" src="http://@System.Configuration.ConfigurationManager.AppSettings["videoHostName"]/uploads/covers/@(Model.TopVideos[i].Guid).jpg" />
+                                <div class="videoBoxHeader">&nbsp;&nbsp;@Model.TopVideos[i].Name</div>
+                            </a>
+                        }
+                    }
+
+                </div>
+
+                
+
+
+
+                <div id="Tab_Paging" style=" float:left; width:100%; height:30px; margin-top:13px; margin-bottom:5px; overflow:hidden;">
+                    @for (int i = 1; i <= Model.NumOfPages; i++)
+                    {
+                        <a class="videoPagingBtn" href="/page/@i">@i.ToString()</a>
+                    }
+                </div>
+
+
+            </div>
+            <!-- LEFT CONT -->
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="boxContLeft">
+    <div id="listenSlide2" class="slideLeft" style=" min-height:250px;">
+
+
+            <div style=" float:right; width:1024px;">
+                
+
+                    <!-- RIGHT CONT -->
+                    <div class="commonRootRightCont">
+
+                        
+                        <div style=" float:left; width:304px; ">                
+                            <div id="SideAd2" class="AdCont300x250_lte" style=" float:left; margin-top:0px; "></div>
+                            <!-- 06_10 -->
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    document.getElementById("SideAd2").innerHTML = "<iframe src=\"http://feed-rt.baronsoffers.com/offer/feed/q/aT0zNTQ4LHM9MzAweDI1MCxuPWlmcmFtZQ==?subid=default\" width=\"300\" height=\"250\" scrolling=\"no\" marginwidth=\"0\" style=\"border:none;\" frameborder=\"0\"></iframe>";
+                                });
+                            </script>
+
+                            <div id="SideAd3" class="AdCont300x250_lte" style=" float:left; margin-top:15px; "></div>
+                            <!-- 06_10 -->
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    document.getElementById("SideAd3").innerHTML = "<iframe src=\"http://feed-rt.baronsoffers.com/offer/feed/q/aT0zNTQ4LHM9MzAweDI1MCxuPWlmcmFtZQ==?subid=default\" width=\"300\" height=\"250\" scrolling=\"no\" marginwidth=\"0\" style=\"border:none;\" frameborder=\"0\"></iframe>";
+                                });
+                            </script>
+                        </div>
+
+
+
+
+                        <div id="listenSlide3_cont" style=" float:left; width:700px; height:523px; margin:0 0 0 20px; background-color:#5a5d5f; border-radius:2px;">
+                            @Html.Action("GetLatestNews", "news")
+                        </div>
+
+                    </div>
+                    <!-- RIGHT CONT -->
+                    
+
+            </div>
+
+</div>
+</div>
+

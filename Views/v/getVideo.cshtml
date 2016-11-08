@@ -1,0 +1,226 @@
+﻿@model hypster_tv.ViewModels.getVideoViewModel
+@{
+    ViewBag.Title = @Model.video.Name;
+}
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        RenderSong();
+    });
+    $(window).resize(function () {
+        RenderSong();
+    });
+
+
+
+    function RenderSong() {
+        var margin_left = 0;
+        var cont_width = 1024;
+
+        if ($(window).width() > 1024) {
+            margin_left = $(window).width() - 1024 - 44;
+            cont_width = 1024 + 30 + (margin_left / 2) - 15;
+        } else {
+            margin_left = 0;
+            cont_width = 1024;
+        }
+
+
+        //===================================================================
+        $("#listenSlide1").css("float", "right");
+        $("#listenSlide1").css("width", cont_width + "px");
+        //===================================================================
+
+
+        //===================================================================
+        $("#listenSlide2").css("float", "left");
+        $("#listenSlide2").css("width", cont_width + "px");
+        //===================================================================
+
+
+        //===================================================================
+        $("#listenSlide3").css("float", "right");
+        $("#listenSlide3").css("width", cont_width + "px");
+        //===================================================================
+        
+
+    }
+
+
+</script>
+
+
+
+<script type="text/javascript" src="http://cdn2.baronsmedia.com/adplayer/jwplayer.js"></script>
+<script type="text/javascript" src="http://cdn2.baronsmedia.com/adplayer/swfobject.js"></script>
+<script type="text/javascript" src="http://cdn2.baronsmedia.com/adplayer/yume.js"></script>
+
+
+
+
+
+
+
+<div class="boxContRight boxContRightTop">
+    <div id="listenSlide1" class="slideRight" style=" min-height:360px;">
+
+
+            <div style=" float:left; width:1024px; ">
+                
+
+
+                <div style=" float:left; width:60px; height:355px; background-color:#232323; ">
+                </div>
+
+
+                <div style=" float:left; width:625px; height:354px; background-color:#232323; border-radius:2px; text-align:center; margin-left:15px;">
+                    <div style="margin:2px;">
+                        
+
+
+
+                        <!-- this is an actual player -->
+                        <div name="mediaspace" id="mediaspace" style="margin: 0 0 0 0;"></div>
+                        <!-- player end -->
+
+
+
+                        <!-- this is the code that generates player, loads video, etc., must be placed below that player tag -->
+                        <script type="text/javascript">
+                            var s1 = new SWFObject("http://cdn2.baronsmedia.com/adplayer/player.swf","JW","621","350","9");
+                            
+
+                            s1.addParam("allowscriptaccess", "always");
+                            s1.addParam("wmode","transparent");
+                            s1.addParam("allowfullscreen","true");
+                            s1.addVariable("javascriptid", "JW");
+                            s1.addVariable("mute","false");
+                            s1.addVariable("volume","100");
+                            s1.addVariable("autostart","true");
+                            s1.addVariable("width","621");
+                            s1.addVariable("height","350");
+                            
+                            
+                            s1.addVariable("file","http://@System.Configuration.ConfigurationManager.AppSettings["cdnHostName"]/uploads/@(Model.video.Guid).flv");
+                            s1.addVariable("image","http://hypster.com/imgs/shared/main_logo.png");
+
+                            s1.addVariable("plugins","acudeojw");
+                            s1.addVariable("acudeojw.progId","5106dbc461fca"); //50fd75ed16f3b
+                            s1.addVariable("acudeojw.description","@(Model.video.Name)");
+                            s1.addVariable("acudeojw.descriptionUrl","http://@System.Configuration.ConfigurationManager.AppSettings["cdnHostName"]/uploads/@(Model.video.Guid).flv");
+                            s1.addVariable("acudeojw.videoId","@(Model.video.Guid)");
+                            s1.addVariable("acudeojw.title","@(Model.video.Name)");
+
+
+	                        s1.write("mediaspace"); // make sure that this matches the player div name and id
+                        </script>
+
+
+                        
+
+                    </div>
+                </div>
+
+
+
+                <div id="SideAd1" class="AdCont300x250" style=" float:left; margin-left:20px;"></div>
+                <!-- 06_10 -->
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        document.getElementById("SideAd1").innerHTML = "<iframe src=\"http://feed-rt.baronsoffers.com/offer/feed/q/aT0zNTQ4LHM9MzAweDI1MCxuPWlmcmFtZQ==?subid=default\" width=\"300\" height=\"250\" scrolling=\"no\" marginwidth=\"0\" style=\"border:none;\" frameborder=\"0\"></iframe>";
+                    });
+                </script>
+
+
+                <div style=" float:left; width:304px; height:85px; line-height:85px; text-align:center; background-color:#232323; margin:15px 0 0 20px; font-size:27px; cursor:pointer;" onclick="window.location='/page/1';">
+                    All Videos
+                </div>
+
+
+            </div>
+            
+
+</div>
+</div>
+
+
+
+
+
+
+<div class="boxContLeft">
+    <div id="listenSlide2" class="slideLeft" style=" min-height:250px;">
+        
+
+            <div class="SongCommentsCont">
+            
+                    <!--div class="CommHeader"></div-->
+
+
+                    @using (Html.BeginForm("SubmitVideoComment", "videoComment", FormMethod.Post))
+                    {
+                        <input type="hidden" id="videoClip_ID" name="videoClip_ID" value="@Model.video.videoClip_ID" />
+                        <input type="hidden" id="video_guid" name="video_guid" value="@Model.video.Guid" />
+                        
+                        
+                        if (Request.IsAuthenticated)
+                        {
+                            <textarea type="text" id="comment" name="comment" style=" width:99%; height:60px; overflow:hidden; background-color:#747e83; color:#FFFFFF; border:1px solid #747e83; border-radius:2px;" ></textarea>
+                            <input type="submit" value="Post" style=" width:180px; background-color:#747e83; border:1px solid #747e83; color:#FFFFFF; float:right; margin-top:5px; margin-right:10px;" />
+                        }
+                        else
+                        {
+                            <textarea type="text" id="comment" name="comment" disabled="disabled" style=" width:99%; height:60px; overflow:hidden; background-color:#747e83; color:#FFFFFF; border:1px solid #747e83; border-radius:2px;" ></textarea>
+                            <input type="button" value="Login to Comment" onclick="window.location='/account/login?ReturnUrl=/video/@Model.video.Guid';" style=" width:130px; background-color:#747e83; border:1px solid #747e83; color:#FFFFFF; float:right; margin-top:5px; margin-right:10px;" />
+                        }
+                    }
+
+
+
+                    <div style=" float:left; width:100%; margin-top:15px;">
+                        @{ int comm_num = 1; }
+                        @foreach (var item in Model.comments_list)
+                        {
+                            <div class="CommItem">
+                                <div class="LFc" >@item.comment</div>
+                                <div class="RTc" >@item.userName, <span>@item.postDate</span></div>
+                            </div>
+                            
+                            if (comm_num > 14)
+                            {
+                                break;
+                            }
+                            
+                            comm_num = comm_num + 1;
+                        }
+                    
+                        <div class="CommV2"></div>
+                        <div class="CommV3"></div>
+                    </div>
+
+            </div>
+
+    </div>
+</div>
+
+
+
+<div class="boxContRight">
+    <div id="listenSlide3" class="slideRight" style=" min-height:450px;">
+
+            <div style=" float:left; width:1024px;  margin-left:10px; ">
+           
+                @Html.Action("_getVideoBottomLinks", "video")
+
+           </div>
+        
+
+    </div>
+</div>
+
+
+
+
+

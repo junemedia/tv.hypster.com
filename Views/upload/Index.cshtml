@@ -1,0 +1,52 @@
+﻿@model hypster_tv_DAL.videoClip
+
+@{
+    ViewBag.Title = "Upload Your Video";
+}
+
+
+
+
+<div style=" float:left; width:625px; min-height:250px; background-color:#565656; border-radius:2px; text-align:left;">
+    
+
+    <div style=" width:94%; margin:2% 2% 2% 4%; ">
+        <span style=" color:#FCF088; font-size:19px; font-weight:bold; ">Upload new video:</span><br />
+        <br />
+
+        @using (Html.BeginForm("Index", "upload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <text>Add Video</text>
+            <input type="file" name="file" id="file" style=" width:500px; height:22px; border:1px solid #454545; background-color:#EEEEEE; color:#000000;" />
+            <br /><br />
+        
+            
+            @Html.LabelFor(m => m.Name)<text>&nbsp;</text>
+            @Html.TextBoxFor(m => m.Name, new { @class = "txtUploadName" })
+            <br /><br />
+            
+            @Html.LabelFor(m => m.Description)<br />
+            @Html.TextAreaFor(m => m.Description, new { @class = "txtUploadDesc" })
+            <br /><br />
+            
+            <div style=" float:left; width:96%; text-align:right; margin-bottom:15px;">
+                <input type="submit" value="Add Video" style=" width:160px; " />
+                <input type="button" value="Cancel" style=" width:80px; " onclick="window.location='/home';" />
+            </div>
+            
+            @Html.ValidationSummary(true, "", new { @class = "txtValidator" })
+        }
+    </div>
+
+</div>
+
+
+<div class="commonRootRightCont">
+   <div id="SideAd1" class="AdCont300x250"></div>
+   <!-- 06_10 -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            document.getElementById("SideAd1").innerHTML = "<iframe src=\"http://feed-rt.baronsoffers.com/offer/feed/q/aT0zNTQ4LHM9MzAweDI1MCxuPWlmcmFtZQ==?subid=default\" width=\"300\" height=\"250\" scrolling=\"no\" marginwidth=\"0\" style=\"border:none;\" frameborder=\"0\"></iframe>";
+        });
+    </script>
+</div>

@@ -1,0 +1,27 @@
+﻿@model List<hypster_tv_DAL.videoFeaturedSlideshow>
+
+@{
+    Layout = null;
+}
+
+
+<div class="mainSlideshow">
+    @foreach (var video in Model)
+    {
+        <a href="/video/@video.Guid">
+            <img alt="@video.Name" src="../imgs/slideshow/@video.ImageSrc" />
+            <div>&nbsp;&nbsp;@video.Name</div>
+        </a>
+    }
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+        $('.mainSlideshow').cycle({
+            fx: 'fade'
+        });
+    });
+</script> 
+
+
